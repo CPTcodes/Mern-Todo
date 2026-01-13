@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import RateLimitedUI from "../components/RateLimitedUI";
 import NoteCard from "../components/NoteCard";
 import EmptyNotesPanda from "../components/EmptyNotesPanda";
+import JokesApi from "../components/JokesApi";
 
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
@@ -44,15 +45,21 @@ const HomePage = () => {
           <div className="text-center text-primary py-10">Loading Notes...</div>
         )}
 
-        {notes.length === 0  && !isRateLimited && <EmptyNotesPanda/>}
-
-        {notes.length > 0 && !isRateLimited && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {notes.map((note) => (
-              <NoteCard key={note._id} note={note} setNotes={setNotes} />
-            ))}
+        {notes.length === 0 && !isRateLimited && <EmptyNotesPanda />}
+        <div className="flex flex-row">
+          <div className="basis-2/3">
+            {notes.length > 0 && !isRateLimited && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {notes.map((note) => (
+                  <NoteCard key={note._id} note={note} setNotes={setNotes} />
+                ))}
+              </div>
+            )}
           </div>
-        )}
+          <div className="basis-1/3 flex justify-center items-center gap-4">
+            <div>{<JokesApi />}</div>
+          </div>
+        </div>
       </div>
     </div>
   );
